@@ -1,9 +1,11 @@
 import Image from "next/image";
-import styles from "./page.module.css";
-import { addCabin } from "./lib/cabinapi";
+import styles from "../../page.module.css";
+import { addCabin, getCabinById } from "../../lib/cabinapi";
 
-export default function Home() {
-  var test = addCabin({});
+export default async function CabinDetails({ params }: { params: { cabinId: string } }) {
+  console.log('Getting cabin by id ' +params?.cabinId);
+  const cabin = await getCabinById(params.cabinId);
+  console.log('cabin received?: '+cabin);
   return (
     <main className={styles.main}>
       <div className={styles.description}>

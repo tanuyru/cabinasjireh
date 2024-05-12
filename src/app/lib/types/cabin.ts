@@ -1,5 +1,5 @@
 interface Cabin {
-    id: number;
+    id: string;
     name: string;
     description: string;
     urlsToPhotos: string[];

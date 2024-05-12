@@ -1,6 +1,6 @@
 import Client from "./client"
 interface CabinBooking {
-    id: number;
+    id: string;
     cabinId: number;
     client: Client
     clientRequest: string;

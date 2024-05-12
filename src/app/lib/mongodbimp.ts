@@ -19,7 +19,7 @@ export const addCabinDb = async (cabin: Cabin): Promise<void> => {
     await client.close();
 }
 
-export const removeCabinDb = async (cabinId: number): Promise<void> => {
+export const removeCabinDb = async (cabinId: string): Promise<void> => {
     const client = new MongoClient(url);
     
     await client.connect();
@@ -58,7 +58,7 @@ export const addCabinBookingDb = async (cabinBooking: CabinBooking): Promise<voi
     await client.close();
 }
 
-export const removeCabinBookingDb = async (bookingId: number): Promise<void> => {
+export const removeCabinBookingDb = async (bookingId: string): Promise<void> => {
     const client = new MongoClient(url);
     
     await client.connect();
@@ -82,4 +82,34 @@ export const updateCabinBookingDb = async (cabinBooking: CabinBooking): Promise<
     await cabinBookingsCollection.updateOne({ id: cabinBooking.id }, { $set: cabinBooking });
     
     await client.close();
+}
+
+export const getCabinByIdDb = async (cabinId: string): Promise<Cabin | null> => {
+    const client = new MongoClient(url);
+    
+    await client.connect();
+    const db = client.db(dbName);
+    
+    const cabinsCollection = db.collection('cabins');
+    
+    const result = await cabinsCollection.findOne({ id: cabinId });
+    
+    await client.close();
+
+    return result ? result : null;
+}
+
+export const getCabinBookingByIdDb = async (bookingId: string): Promise<CabinBooking | null> => {
+    const client = new MongoClient(url);
+    
+    await client.connect();
+    const db = client.db(dbName);
+    
+    const cabinBookingsCollection = db.collection('cabinBookings');
+    
+    const result = await cabinBookingsCollection.findOne({ id: bookingId });
+    
+    await client.close();
+
+    return result ? result : null;
 }
