@@ -1,7 +1,9 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { addCabin } from "./lib/cabinapi";
 
 export default function Home() {
+  var test = addCabin({});
   return (
     <main className={styles.main}>
       <div className={styles.description}>
